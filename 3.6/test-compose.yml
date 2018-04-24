@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+  mongodb:
+    image: wenitlabs/mongo:3.6.4
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "27017:27017"
+    volumes: 
+      - ./run/data/configdb:/data/configdb
+      - ./run/data/db:/data/db
+    environment: 
+      - "MONGODB_ADMIN_PASS=test"
+      
