@@ -8,9 +8,6 @@ RUN apt-get update && \
     apt-get install -y --force-yes pwgen && \
     apt-get clean
 
-VOLUME /data/configdb
-VOLUME /data/db
-
 ENV AUTH yes
 ENV STORAGE_ENGINE wiredTiger
 ENV JOURNALING yes
@@ -18,6 +15,10 @@ ENV JOURNALING yes
 ADD ./config/run.sh /run.sh
 ADD ./config/setup.sh /setup.sh
 
-EXPOSE 27017 28017
+RUN chown -R mongodb:mongodb /run.sh /setup.sh
+
+EXPOSE 27017
+
+USER mongodb
 
 CMD ["/run.sh"]
